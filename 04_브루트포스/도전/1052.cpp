@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include <bitset>
 using namespace std;
 
@@ -8,10 +8,11 @@ int findMinimumBottlesRequired(int n, int k) {
 	while (1) {
 		bitset<32> total_binary(total_water);
 		int count = total_binary.count();
-		if (count <= k) //ÃÖ¼Ò ¹°º´ÀÌ kÀÌÇÏ¸é Áß´Ü
+		if (count <= k) { //ìµœì†Œ ë¬¼ë³‘ì´ kì´í•˜ë©´ ì¤‘ë‹¨
 			break;
+		}
 
-		total_water++; //ÃÖ¼Ò ¹°º´ÀÌ kº¸´Ù Å©¸é ¹°º´ Ãß°¡
+		total_water++; //ìµœì†Œ ë¬¼ë³‘ì´ kë³´ë‹¤ í¬ë©´ ë¬¼ë³‘ ì¶”ê°€
 	}
 	return total_water - n;
 }

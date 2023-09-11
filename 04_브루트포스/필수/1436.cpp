@@ -1,25 +1,28 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<string>
 #include<vector>
 using namespace std;
 
-bool check666(int num) { // ¿¬¼ÓµÈ 666ÀÌ ÀÖ´ÂÁö È®ÀÎ
+bool check666(int num) { // ì—°ì†ëœ 666ì´ ìˆëŠ”ì§€ í™•ì¸
 	string str = to_string(num);
 	int cnt = 0;
 	for (int i = 0; i < str.size(); i++) {
-		if (str[i] == '6')
+		if (str[i] == '6') {
 			cnt += 1;
-		else
+		}
+		else {
 			cnt = 0;
+		}
 
-		if (cnt >= 3)
+		if (cnt >= 3) {
 			return true;
+		}
 	}
 
 	return false;
 }
 
-int findNumber(int n) { // n¹øÂ° 666À» Æ÷ÇÔÇÑ ¼ıÀÚ ¸®ÅÏ
+int findNumber(int n) { // në²ˆì§¸ 666ì„ í¬í•¨í•œ ìˆ«ì ë¦¬í„´
 	vector<int> number666;
 
 	int num = 666;

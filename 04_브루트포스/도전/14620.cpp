@@ -1,24 +1,30 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 
-int n;
-int min_cost = 3000;
-int cost[10][10] = { 0 };
-int garden[10][10] = { 0 };
+const int MAX_X = 10;
+const int MAX_Y = 10;
+const int MAX_COST = 3000;
 
-int plantable(int index) { // index¸¦ Áß½ÉÀ¸·Î ÇÑ ¿µ¿ª¿¡ ²ÉÀ» ½ÉÀ» ¼ö ÀÖ´ÂÁö È®ÀÎ
-	if (index / n == 0 || index % n == 0 || index / n == n - 1 || index % n == n - 1)
+int n;
+int min_cost = MAX_COST;
+int cost[MAX_X][MAX_Y] = { 0 };
+int garden[MAX_X][MAX_Y] = { 0 };
+
+int plantable(int index) { // indexë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í•œ ì˜ì—­ì— ê½ƒì„ ì‹¬ì„ ìˆ˜ ìˆëŠ”ì§€ í™•ì¸
+	if (index / n == 0 || index % n == 0 || index / n == n - 1 || index % n == n - 1) {
 		return -1;
+	}
 	int x = index / n;
 	int y = index % n;
 
 	if (garden[x][y] != 0 || garden[x + 1][y] != 0 || garden[x][y + 1] != 0 ||
-		garden[x - 1][y] != 0 || garden[x][y - 1] != 0)
+		garden[x - 1][y] != 0 || garden[x][y - 1] != 0) {
 		return -1;
+	}
 
 	return cost[x][y] + cost[x + 1][y] + cost[x][y + 1] + cost[x - 1][y] + cost[x][y - 1];
 }
-void checkGarden(int index) { // index¸¦ Áß½ÉÀ¸·Î ÇÑ ¿µ¿ª 1·Î º¯°æ
+void checkGarden(int index) { // indexë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í•œ ì˜ì—­ 1ë¡œ ë³€ê²½
 	int x = index / n;
 	int y = index % n;
 	garden[x][y] = 1;
@@ -28,7 +34,7 @@ void checkGarden(int index) { // index¸¦ Áß½ÉÀ¸·Î ÇÑ ¿µ¿ª 1·Î º¯°æ
 	garden[x][y - 1] = 1;
 }
 
-void uncheckGarden(int index) { // index¸¦ Áß½ÉÀ¸·Î ÇÑ ¿µ¿ª 0À¸·Î º¯°æ
+void uncheckGarden(int index) { // indexë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í•œ ì˜ì—­ 0ìœ¼ë¡œ ë³€ê²½
 	int x = index / n;
 	int y = index % n;
 	garden[x][y] = 0;
@@ -38,15 +44,16 @@ void uncheckGarden(int index) { // index¸¦ Áß½ÉÀ¸·Î ÇÑ ¿µ¿ª 0À¸·Î º¯°æ
 	garden[x][y - 1] = 0;
 }
 
-void bt(int depth, int curindex, int cost) { // ¸ğµç °æ¿ì¸¦ backtrackingÀ¸·Î È®ÀÎ
-	if (depth >= 3) { // ²É 3°³¸¦ ½ÉÀº °æ¿ì
-		if (cost < min_cost)
+void bt(int depth, int curindex, int cost) { // ëª¨ë“  ê²½ìš°ë¥¼ backtrackingìœ¼ë¡œ í™•ì¸
+	if (depth >= 3) { // ê½ƒ 3ê°œë¥¼ ì‹¬ì€ ê²½ìš°
+		if (cost < min_cost) {
 			min_cost = cost;
+		}
 	}
 	else {
 		for (int i = curindex; i < n * n; i++) {
 			int curcost = plantable(i);
-			if (curcost >= 0) { // ÇØ´ç ¿µ¿ª¿¡ ²ÉÀ» ½ÉÀ» ¼ö ÀÖÀ¸¸é
+			if (curcost >= 0) { // í•´ë‹¹ ì˜ì—­ì— ê½ƒì„ ì‹¬ì„ ìˆ˜ ìˆìœ¼ë©´
 				checkGarden(i);
 				bt(depth + 1, i + 2, cost + curcost);
 				uncheckGarden(i);

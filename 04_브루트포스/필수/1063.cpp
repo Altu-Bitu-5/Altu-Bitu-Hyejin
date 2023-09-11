@@ -1,50 +1,58 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<vector>
 #include<string>
 using namespace std;
 
-string movePosiiton(string position, string m) { //ÇÑ¹ø ÀÌµ¿ÇÏ´Â ÇÔ¼ö
+string movePosiiton(string position, string m) { //í•œë²ˆ ì´ë™í•˜ëŠ” í•¨ìˆ˜
 	if (m == "R") {
-		if (position[0] == 'H') //ÀÌµ¿ ºÒ°¡ÇÏ¸é ESCAPE ¸®ÅÏ
+		if (position[0] == 'H') { //ì´ë™ ë¶ˆê°€í•˜ë©´ ESCAPE ë¦¬í„´
 			return "E";
-		position[0] = (position[0] - 'A' + 1) % 26 + 'A'; //ÀÌµ¿°¡´ÉÇÏ¸é position º¯°æ
+		}
+		position[0] = (position[0] - 'A' + 1) % 26 + 'A'; //ì´ë™ê°€ëŠ¥í•˜ë©´ position ë³€ê²½
 	}
 	else if (m == "L") {
-		if (position[0] == 'A')
+		if (position[0] == 'A') {
 			return "E";
+		}
 		position[0] = (position[0] - 'A' - 1) % 26 + 'A';
 	}
 	else if (m == "B") {
-		if (position[1] == '1')
+		if (position[1] == '1') {
 			return "E";
+		}
 		position[1] -= 1;
 	}
 	else if (m == "T") {
-		if (position[1] == '8')
+		if (position[1] == '8') {
 			return "E";
+		}
 		position[1] += 1;
 	}
 	else if (m == "RT") {
-		if (position[0] == 'H' || position[1] == '8')
+		if (position[0] == 'H' || position[1] == '8') {
 			return "E";
+		}
 		position[0] = (position[0] - 'A' + 1) % 26 + 'A';
 		position[1] += 1;
 	}
 	else if (m == "LT") {
-		if (position[0] == 'A' || position[1] == '8')
+		if (position[0] == 'A' || position[1] == '8') {
 			return "E";
+		}
 		position[0] = (position[0] - 'A' - 1) % 26 + 'A';
 		position[1] += 1;
 	}
 	else if (m == "RB") {
-		if (position[0] == 'H' || position[1] == '1')
+		if (position[0] == 'H' || position[1] == '1') {
 			return "E";
+		}
 		position[0] = (position[0] - 'A' + 1) % 26 + 'A';
 		position[1] -= 1;
 	}
 	else if (m == "LB") {
-		if (position[0] == 'A' || position[1] == '1')
+		if (position[0] == 'A' || position[1] == '1') {
 			return "E";
+		}
 		position[0] = (position[0] - 'A' - 1) % 26 + 'A';
 		position[1] -= 1;
 	}
@@ -53,18 +61,18 @@ string movePosiiton(string position, string m) { //ÇÑ¹ø ÀÌµ¿ÇÏ´Â ÇÔ¼ö
 }
 
 pair<string, string> lastPositionKD(string k, string d, vector<string> move) {
-	// n¹ø ÀÌµ¿ ÈÄ ¸¶Áö¸· k, d À§Ä¡ ¸®ÅÏ
+	// në²ˆ ì´ë™ í›„ ë§ˆì§€ë§‰ k, d ìœ„ì¹˜ ë¦¬í„´
 
-	for (int i = 0; i < move.size(); i++) { // n¹ø ÀÌµ¿
+	for (int i = 0; i < move.size(); i++) { // në²ˆ ì´ë™
 		string temp_k = k;
 		string temp_d = d;
 
-		temp_k = movePosiiton(k, move[i]); // k ÀÌµ¿
+		temp_k = movePosiiton(k, move[i]); // k ì´ë™
 		if (d == temp_k) {
-			temp_d = movePosiiton(d, move[i]); //k ÀÌµ¿ ÈÄ d¿Í °°Àº À§Ä¡¸é d ÀÌµ¿
+			temp_d = movePosiiton(d, move[i]); //k ì´ë™ í›„ dì™€ ê°™ì€ ìœ„ì¹˜ë©´ d ì´ë™
 		}
 
-		if (temp_k != "E" && temp_d != "E") { //k, d ÀÌµ¿ ºÒ°¡ÇÏÁö ¾ÊÀ¸¸é º¯°æ
+		if (temp_k != "E" && temp_d != "E") { //k, d ì´ë™ ë¶ˆê°€í•˜ì§€ ì•Šìœ¼ë©´ ë³€ê²½
 			k = temp_k;
 			d = temp_d;
 		}
